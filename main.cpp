@@ -5,17 +5,11 @@
 
 class Block{
 
-friend class Board;
+//friend class Board;
 
-private:
+private:    
     int val;
     int pozX, pozY;
-
-    void setBlock(const int pozX_, const int pozY_, const int val_){
-        pozX = pozX_;
-        pozY = pozY_;
-        val = val_;
-    }
 
 public:
     Block(const int val_ = 0, const int pozX_ = 0, const int pozY_ = 0): val(val_), pozX(pozX_), pozY(pozY_){
@@ -37,12 +31,22 @@ public:
         os << el.val << " ";
         return os;
     }
+
+    void setBlock(const int pozX_, const int pozY_, const int val_){
+        pozX = pozX_;
+        pozY = pozY_;
+        val = val_;
+    }
     
     Block& swapBlock(Block& other){
         std::swap(val, other.val);
         std::swap(pozX, other.pozX);
         std::swap(pozY, other.pozY);
         return *this;
+    }
+
+    int getValBlock () const{
+        return val;
     }
 
     bool isEmpty(){
@@ -55,7 +59,7 @@ public:
 
 class Board{
 
-friend class Game;
+//friend class Game;
 
 private:
     Block elemTabla[4][4];
@@ -129,7 +133,7 @@ public:
             X = rand() %3;
             Y = rand() %3;
         }
-        if (val%4 == 0)
+        if (val%10 == 0)
             elemTabla[X][Y].setBlock(X, Y, 4);
         else
             elemTabla[X][Y].setBlock(X, Y, 2);
@@ -138,11 +142,11 @@ public:
     void moveLeft(){
         for(int i = 0 ; i < 4; i++){
             for (int j = 0, e = 1; j < 4; j++){
-                if(elemTabla[i][j].val == 0){
+                if(elemTabla[i][j].getValBlock() == 0){
                     e = j;
-                    while (e < 4 && elemTabla[i][e].val == 0)
+                    while (e < 4 && elemTabla[i][e].getValBlock() == 0)
                         e++;
-                    if(e < 4 && elemTabla[i][e].val != 0)
+                    if(e < 4 && elemTabla[i][e].getValBlock() != 0)
                         elemTabla[i][j].swapBlock(elemTabla[i][e]);
                 }
             }
@@ -152,11 +156,11 @@ public:
     void moveRight(){
         for(int i = 0 ; i < 4; i++){
             for (int j = 3, e; j >= 0; j--){
-                if(elemTabla[i][j].val == 0){
+                if(elemTabla[i][j].getValBlock() == 0){
                     e = j;
-                    while (e >= 0 && elemTabla[i][e].val == 0)
+                    while (e >= 0 && elemTabla[i][e].getValBlock() == 0)
                         e--;
-                    if(e >= 0 && elemTabla[i][e].val != 0)
+                    if(e >= 0 && elemTabla[i][e].getValBlock() != 0)
                         elemTabla[i][j].swapBlock(elemTabla[i][e]);
                 }
             }
@@ -167,11 +171,11 @@ public:
     void moveUp(){
         for(int j = 0; j < 4; j++){
             for(int i = 0, e; i < 4; i++){
-                if(elemTabla[i][j].val == 0){
+                if(elemTabla[i][j].getValBlock() == 0){
                     e = i;
-                    while (e < 4 && elemTabla[e][j].val == 0)
+                    while (e < 4 && elemTabla[e][j].getValBlock() == 0)
                         e++;
-                    if(e < 4 && elemTabla[e][j].val != 0)
+                    if(e < 4 && elemTabla[e][j].getValBlock() != 0)
                         elemTabla[i][j].swapBlock(elemTabla[e][j]);
                 }
             }
@@ -181,11 +185,11 @@ public:
     void moveDown(){
         for(int j = 0; j < 4; j++){
             for(int i = 3, e; i >= 0; i--){
-                if(elemTabla[i][j].val == 0){
+                if(elemTabla[i][j].getValBlock() == 0){
                     e = i;
-                    while (e >= 0 && elemTabla[e][j].val == 0)
+                    while (e >= 0 && elemTabla[e][j].getValBlock() == 0)
                         e--;
-                    if(e >= 0 && elemTabla[e][j].val != 0)
+                    if(e >= 0 && elemTabla[e][j].getValBlock() != 0)
                         elemTabla[i][j].swapBlock(elemTabla[e][j]);
                 }
             }
@@ -196,9 +200,9 @@ public:
         int add = 0;
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 3; j++){
-                if(elemTabla[i][j].val == elemTabla[i][j+1].val){
-                    add += elemTabla[i][j].val*2;
-                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].val*2);
+                if(elemTabla[i][j].getValBlock() == elemTabla[i][j+1].getValBlock()){
+                    add += elemTabla[i][j].getValBlock()*2;
+                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].getValBlock()*2);
                     elemTabla[i][j+1].setBlock(i, j+1, 0);
                 }
                 
@@ -212,9 +216,9 @@ public:
         int add = 0;
         for(int i = 0; i < 4; i++){
             for(int j = 3; j > 0; j--){
-                if(elemTabla[i][j].val == elemTabla[i][j-1].val){
-                    add += elemTabla[i][j].val*2;
-                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].val*2);
+                if(elemTabla[i][j].getValBlock() == elemTabla[i][j-1].getValBlock()){
+                    add += elemTabla[i][j].getValBlock()*2;
+                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].getValBlock()*2);
                     elemTabla[i][j-1].setBlock(i, j-1, 0);
                 }
             }
@@ -226,10 +230,10 @@ public:
     int addUp(){
         int add  = 0;
         for(int j = 0; j < 4; j++){
-            for(int i = 0; i < 4; i++){
-                if(elemTabla[i][j].val == elemTabla[i+1][j].val){
-                    add += elemTabla[i][j].val*2;
-                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].val*2);
+            for(int i = 0; i < 3; i++){
+                if(elemTabla[i][j].getValBlock() == elemTabla[i+1][j].getValBlock()){
+                    add += elemTabla[i][j].getValBlock()*2;
+                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].getValBlock()*2);
                     elemTabla[i+1][j].setBlock(i+1, j, 0);
                 }
              }
@@ -242,9 +246,9 @@ public:
         int add  = 0;
         for(int j = 0; j < 4; j++){
             for(int i = 3; i > 0; i--){
-                if(elemTabla[i][j].val == elemTabla[i-1][j].val){
-                    add += elemTabla[i][j].val*2;
-                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].val*2);
+                if(elemTabla[i][j].getValBlock() == elemTabla[i-1][j].getValBlock()){
+                    add += elemTabla[i][j].getValBlock()*2;
+                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].getValBlock()*2);
                     elemTabla[i-1][j].setBlock(i-1, j, 0);
                 }
              }
