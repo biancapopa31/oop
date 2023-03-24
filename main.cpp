@@ -18,15 +18,17 @@ private:
     }
 
 public:
-    Block(const int val_ = 0): val(val_){
+    Block(const int val_ = 0, const int pozX_ = 0, const int pozY_ = 0): val(val_), pozX(pozX_), pozY(pozY_){
         std::cout << "Constructor Block\n";
     } 
-    Block(const Block& other): val(other.val){
+    Block(const Block& other): val(other.val), pozX(other.pozX), pozY(other.pozY){
         std::cout << "Constructor de copiere Block\n";
     } // constructor de copiere
 
     Block& operator=(const Block& other) {
         val = other.val;
+        pozX = other.pozX;
+        pozY = other.pozY;
         std::cout << "operator= copiere Block\n";
         return *this;
     }
@@ -138,9 +140,9 @@ public:
             for (int j = 0, e = 1; j < 4; j++){
                 if(elemTabla[i][j].val == 0){
                     e = j;
-                    while (elemTabla[i][e].val == 0 && e < 4)
+                    while (e < 4 && elemTabla[i][e].val == 0)
                         e++;
-                    if(elemTabla[i][e].val != 0 && e < 4)
+                    if(e < 4 && elemTabla[i][e].val != 0)
                         elemTabla[i][j].swapBlock(elemTabla[i][e]);
                 }
             }
@@ -152,12 +154,13 @@ public:
             for (int j = 3, e; j >= 0; j--){
                 if(elemTabla[i][j].val == 0){
                     e = j;
-                    while (elemTabla[i][e].val == 0 && e >= 0)
+                    while (e >= 0 && elemTabla[i][e].val == 0)
                         e--;
-                    if(elemTabla[i][e].val != 0 && e >= 0)
+                    if(e >= 0 && elemTabla[i][e].val != 0)
                         elemTabla[i][j].swapBlock(elemTabla[i][e]);
                 }
             }
+
         }
     }
     
@@ -166,9 +169,9 @@ public:
             for(int i = 0, e; i < 4; i++){
                 if(elemTabla[i][j].val == 0){
                     e = i;
-                    while (elemTabla[e][j].val == 0 && e < 4)
+                    while (e < 4 && elemTabla[e][j].val == 0)
                         e++;
-                    if(elemTabla[e][j].val != 0 && e < 4)
+                    if(e < 4 && elemTabla[e][j].val != 0)
                         elemTabla[i][j].swapBlock(elemTabla[e][j]);
                 }
             }
@@ -180,9 +183,9 @@ public:
             for(int i = 3, e; i >= 0; i--){
                 if(elemTabla[i][j].val == 0){
                     e = i;
-                    while (elemTabla[e][j].val == 0 && e >= 0)
+                    while (e >= 0 && elemTabla[e][j].val == 0)
                         e--;
-                    if(elemTabla[e][j].val != 0 && e >= 0)
+                    if(e >= 0 && elemTabla[e][j].val != 0)
                         elemTabla[i][j].swapBlock(elemTabla[e][j]);
                 }
             }
@@ -262,13 +265,14 @@ public:
     Game():  tabla(), scor(0){
         std::cout << "Constructor Game\n";
     }
-    Game(const Game& other): tabla(other.tabla){
+    Game(const Game& other): tabla(other.tabla), scor(0){
         std::cout << "Constructor de copiere Game\n";
     } // constructor de copiere
 
     Game& operator=(const Game& other){
         std::cout << "operator= copiere Game\n";
         tabla = other.tabla;
+        scor = other.scor;
         return *this;
     } // operator de copiere
 
