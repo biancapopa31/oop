@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <cstdlib>
 
 class Block{
 
@@ -41,6 +42,11 @@ public:
         return *this;
     }
 
+    bool isEmpty(){
+        return val == 0;
+    }
+
+
     ~Block(){} 
 };
 
@@ -53,7 +59,7 @@ private:
 
 public:
     Board():elemTabla(){
-        makeCustomBoard();
+        makeBoard();
         std::cout << "Constructor Board\n";
     }
     Board(const Board& other): elemTabla(other.elemTabla){
@@ -105,6 +111,27 @@ public:
         elemTabla[3][0].setBlock(3, 0, 2);
     }
 
+    void makeBoard(){
+        genNewElement();
+        genNewElement();
+
+    }
+
+    void genNewElement(){
+        int X = rand() %3;
+        int Y = rand() %3;
+        int val = 1 + rand() %100;
+        while (!elemTabla[X][Y].isEmpty())
+        {
+            X = rand() %3;
+            Y = rand() %3;
+        }
+        if (val%4 == 0)
+            elemTabla[X][Y].setBlock(X, Y, 4);
+        else
+            elemTabla[X][Y].setBlock(X, Y, 2);
+    }
+    
     void moveLeft(){
         for(int i = 0 ; i < 4; i++){
             for (int j = 0, e = 1; j < 4; j++){
@@ -259,18 +286,24 @@ public:
             if(move == 'l'){
                 this->tabla.moveLeft();
                 this->incScor(tabla.addLeft());
+                this->tabla.genNewElement();
             }
             if(move == 'r'){
                 this->tabla.moveRight();
                 this->incScor(tabla.addRight());
+                this->tabla.genNewElement();
+
             }
             if(move == 'u'){
                 this->tabla.moveUp();
                 this->incScor(tabla.addUp());
+                this->tabla.genNewElement();
             }
             if(move == 'd'){
                 this->tabla.moveDown();
                 this->incScor(tabla.addDown());
+                this->tabla.genNewElement();
+
             }
             std::cout << *this;
         }
@@ -296,7 +329,8 @@ int main() {
     //g = h;
     //std::cout << g;
     Game G;
-    B.makeCustomBoard();
+    //B.makeCustomBoard();
+   // B.makeBoard();
     std::cout << G;
     G.play();
     return 0;
