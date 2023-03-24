@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cstdlib>
+#include <stdlib.h>
 
 class Block{
 
@@ -100,7 +101,7 @@ public:
         return os;
     }
 
-    void makeCustomBoard(){
+    /*void makeCustomBoard(){
         elemTabla[1][1].setBlock(1, 1, 2);
         elemTabla[1][3].setBlock(1, 3, 2);
         elemTabla[1][0].setBlock(1, 0, 2);
@@ -109,7 +110,7 @@ public:
         elemTabla[0][3].setBlock(0, 3, 2);
         elemTabla[3][3].setBlock(3, 3, 4);
         elemTabla[3][0].setBlock(3, 0, 2);
-    }
+    }*/
 
     void makeBoard(){
         genNewElement();
@@ -258,7 +259,7 @@ private:
     int scor;
 
 public:
-    Game(): scor(0), tabla(){
+    Game():  tabla(), scor(0){
         std::cout << "Constructor Game\n";
     }
     Game(const Game& other): tabla(other.tabla){
@@ -283,26 +284,30 @@ public:
             char move = this->readMove();
             if(move == 'q')
                 break;
-            if(move == 'l'){
+            if(move == 'a'){
                 this->tabla.moveLeft();
                 this->incScor(tabla.addLeft());
                 this->tabla.genNewElement();
+                clearScreen();
             }
-            if(move == 'r'){
+            if(move == 'd'){
                 this->tabla.moveRight();
                 this->incScor(tabla.addRight());
                 this->tabla.genNewElement();
+                clearScreen();
 
             }
-            if(move == 'u'){
+            if(move == 'w'){
                 this->tabla.moveUp();
                 this->incScor(tabla.addUp());
                 this->tabla.genNewElement();
+                clearScreen();
             }
-            if(move == 'd'){
+            if(move == 's'){
                 this->tabla.moveDown();
                 this->incScor(tabla.addDown());
                 this->tabla.genNewElement();
+                clearScreen();
 
             }
             std::cout << *this;
@@ -316,6 +321,9 @@ public:
         char move;
         std::cin >> move;
         return move;
+    }
+    void clearScreen(){
+        if (system("CLS")) system("clear");
     }
 
     ~Game(){}
@@ -331,6 +339,7 @@ int main() {
     Game G;
     //B.makeCustomBoard();
    // B.makeBoard();
+    G.clearScreen();
     std::cout << G;
     G.play();
     return 0;
