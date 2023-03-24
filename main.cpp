@@ -33,6 +33,7 @@ public:
         os << el.val << " ";
         return os;
     }
+    
     Block& swapBlock(Block& other){
         std::swap(val, other.val);
         std::swap(pozX, other.pozX);
@@ -114,7 +115,48 @@ public:
                     if(elemTabla[i][j].val == 0 && elemTabla[i][e].val != 0 && e < 4)
                         elemTabla[i][j].swapBlock(elemTabla[i][e]);
                 }
-                
+            }
+        }
+    }
+
+    void moveRight(){
+        for(int i = 0 ; i < 4; i++){
+            for (int j = 3, e; j >= 0; j--){
+                if(elemTabla[i][j].val == 0){
+                    e = j;
+                    while (elemTabla[i][e].val == 0 && e >= 0)
+                        e--;
+                    if(elemTabla[i][e].val != 0 && e >= 0)
+                        elemTabla[i][j].swapBlock(elemTabla[i][e]);
+                }
+            }
+        }
+    }
+    
+    void moveUp(){
+        for(int j = 0; j < 4; j++){
+            for(int i = 0, e; i < 4; i++){
+                if(elemTabla[i][j].val == 0){
+                    e = i;
+                    while (elemTabla[e][j].val == 0 && e < 4)
+                        e++;
+                    if(elemTabla[e][j].val != 0 && e < 4)
+                        elemTabla[i][j].swapBlock(elemTabla[e][j]);
+                }
+            }
+        }
+    }
+
+    void moveDown(){
+        for(int j = 0; j < 4; j++){
+            for(int i = 3, e; i >= 0; i--){
+                if(elemTabla[i][j].val == 0){
+                    e = i;
+                    while (elemTabla[e][j].val == 0 && e >= 0)
+                        e--;
+                    if(elemTabla[e][j].val != 0 && e >= 0)
+                        elemTabla[i][j].swapBlock(elemTabla[e][j]);
+                }
             }
         }
     }
@@ -135,6 +177,50 @@ public:
         return add;
     }
 
+    int addRight(){
+        int add = 0;
+        for(int i = 0; i < 4; i++){
+            for(int j = 3; j > 0; j--){
+                if(elemTabla[i][j].val == elemTabla[i][j-1].val){
+                    add += elemTabla[i][j].val*2;
+                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].val*2);
+                    elemTabla[i][j-1].setBlock(i, j-1, 0);
+                }
+            }
+        }
+        moveRight();
+        return add;
+    }
+
+    int addUp(){
+        int add  = 0;
+        for(int j = 0; j < 4; j++){
+            for(int i = 0; i < 4; i++){
+                if(elemTabla[i][j].val == elemTabla[i+1][j].val){
+                    add += elemTabla[i][j].val*2;
+                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].val*2);
+                    elemTabla[i+1][j].setBlock(i+1, j, 0);
+                }
+             }
+        }
+        moveUp();
+        return add;
+    }
+
+    int addDown(){
+        int add  = 0;
+        for(int j = 0; j < 4; j++){
+            for(int i = 3; i > 0; i--){
+                if(elemTabla[i][j].val == elemTabla[i-1][j].val){
+                    add += elemTabla[i][j].val*2;
+                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].val*2);
+                    elemTabla[i-1][j].setBlock(i-1, j, 0);
+                }
+             }
+        }
+        moveDown();
+        return add;
+    }
 
     ~Board(){}
 };
@@ -173,15 +259,19 @@ public:
             if(move == 'l'){
                 this->tabla.moveLeft();
                 this->incScor(tabla.addLeft());
-                std::cout << "stanga\n";
             }
-            if(move == 'r')
-                std::cout << "dreapta\n";
-            if(move == 'u')
-                std::cout << "sus\n";
-            if(move == 'd')
-                std::cout << "jos\n";
-            //this->incScor(1);
+            if(move == 'r'){
+                this->tabla.moveRight();
+                this->incScor(tabla.addRight());
+            }
+            if(move == 'u'){
+                this->tabla.moveUp();
+                this->incScor(tabla.addUp());
+            }
+            if(move == 'd'){
+                this->tabla.moveDown();
+                this->incScor(tabla.addDown());
+            }
             std::cout << *this;
         }
     }
