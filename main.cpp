@@ -140,7 +140,7 @@ public:
                     e = j;
                     while (elemTabla[i][e].val == 0 && e < 4)
                         e++;
-                    if(elemTabla[i][j].val == 0 && elemTabla[i][e].val != 0 && e < 4)
+                    if(elemTabla[i][e].val != 0 && e < 4)
                         elemTabla[i][j].swapBlock(elemTabla[i][e]);
                 }
             }
