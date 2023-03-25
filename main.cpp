@@ -69,12 +69,17 @@ public:
         makeBoard();
         std::cout << "Constructor Board\n";
     }
-    Board(const Board& other): elemTabla(other.elemTabla){
+    Board(const Board& other){
         std::cout << "Constructor de copiere Board\n";
+        for(int i = 0; i < 4; i++)
+            for(int j = 0; j < 4; j++){
+                elemTabla[i][j] = other.elemTabla[i][j];
+            }
     } // constructor de copiere
 
     Board& operator=(const Board& other){
         std::cout << "operator= copiere Board\n";
+        
         for(int i = 0; i < 4; i++)
             for(int j = 0; j < 4; j++){
                 elemTabla[i][j] = other.elemTabla[i][j];
