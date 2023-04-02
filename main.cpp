@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cstdlib>
-#include <stdlib.h>
+//#include <SFML/Graphics.hpp>
 
 class Block{
 
@@ -10,6 +10,7 @@ class Block{
 private:    
     int val;
     int pozX, pozY;
+   // sf::RectangleShape graphicBoard;
 
 public:
     Block(const int val_ = 0, const int pozX_ = 0, const int pozY_ = 0): val(val_), pozX(pozX_), pozY(pozY_){
@@ -62,32 +63,36 @@ class Board{
 //friend class Game;
 
 private:
-    Block elemTabla[4][4];
+    static const int hBoard = 4;
+    static const int wBoard = 4;
+    Block elemBoard[hBoard][wBoard];
+   // sf::RectangleShape graphicBoard;
+
 
 public:
-    Board():elemTabla(){
+    Board():elemBoard(){
         makeBoard();
         std::cout << "Constructor Board\n";
     }
     Board(const Board& other){
         std::cout << "Constructor de copiere Board\n";
-        for(int i = 0; i < 4; i++)
-            for(int j = 0; j < 4; j++){
-                elemTabla[i][j] = other.elemTabla[i][j];
+        for(int i = 0; i < hBoard; i++)
+            for(int j = 0; j < wBoard; j++){
+                elemBoard[i][j] = other.elemBoard[i][j];
             }
     } // constructor de copiere
 
     Board& operator=(const Board& other){
         std::cout << "operator= copiere Board\n";
         
-        for(int i = 0; i < 4; i++)
-            for(int j = 0; j < 4; j++){
-                elemTabla[i][j] = other.elemTabla[i][j];
+        for(int i = 0; i < hBoard; i++)
+            for(int j = 0; j < wBoard; j++){
+                elemBoard[i][j] = other.elemBoard[i][j];
             }
         return *this;
     } // operator de copiere
 
-    friend std::ostream& operator<<(std::ostream& os, const Board& tabla) {
+    friend std::ostream& operator<<(std::ostream& os, const Board& board) {
         for (int i = 0; i < 20 ; i++)
             os << "_";
         os << "\n";
@@ -95,9 +100,9 @@ public:
             os << " ";
         os << "\n";
         
-        for (int i = 0; i < 4; i++){
-            for(int j = 0; j< 4; j++)
-                os << "| " << tabla.elemTabla[i][j] << "|";
+        for (int i = 0; i < hBoard; i++){
+            for(int j = 0; j< wBoard; j++)
+                os << "| " << board.elemBoard[i][j] << "|";
             os << "\n";
             for (int j = 0; j < 20 ; j++)
                 os << "_";
@@ -113,14 +118,22 @@ public:
     }
 
     /*void makeCustomBoard(){
-        elemTabla[1][1].setBlock(1, 1, 2);
-        elemTabla[1][3].setBlock(1, 3, 2);
-        elemTabla[1][0].setBlock(1, 0, 2);
-        elemTabla[1][2].setBlock(1, 2, 2);
-        elemTabla[2][1].setBlock(2, 1, 2);
-        elemTabla[0][3].setBlock(0, 3, 2);
-        elemTabla[3][3].setBlock(3, 3, 4);
-        elemTabla[3][0].setBlock(3, 0, 2);
+        elemBoard[1][1].setBlock(1, 1, 2);
+        elemBoard[1][3].setBlock(1, 3, 2);
+        elemBoard[1][0].setBlock(1, 0, 2);
+        elemBoard[1][2].setBlock(1, 2, 2);
+        elemBoard[2][1].setBlock(2, 1, 2);
+        elemBoard[0][3].setBlock(0, 3, 2);
+        elemBoard[3][3].setBlock(3, 3, 4);
+        elemBoard[3][0].setBlock(3, 0, 2);
+    }*/
+
+   /* void setGraphicBoard(){
+        graphicBoard.setSize(sf::Vector2f(430, 430));
+        graphicBoard.setOutlineColor(sf::Color(187, 173, 160));
+        graphicBoard.setFillColor(sf::Color(187, 173, 160));
+        graphicBoard.setOutlineThickness(10);
+        graphicBoard.setPosition(185, 85);
     }*/
 
     void makeBoard(){
@@ -133,40 +146,40 @@ public:
         int X = rand() %3;
         int Y = rand() %3;
         int val = 1 + rand() %100;
-        while (!elemTabla[X][Y].isEmpty())
+        while (!elemBoard[X][Y].isEmpty())
         {
             X = rand() %3;
             Y = rand() %3;
         }
         if (val%10 == 0)
-            elemTabla[X][Y].setBlock(X, Y, 4);
+            elemBoard[X][Y].setBlock(X, Y, 4);
         else
-            elemTabla[X][Y].setBlock(X, Y, 2);
+            elemBoard[X][Y].setBlock(X, Y, 2);
     }
     
     void moveLeft(){
-        for(int i = 0 ; i < 4; i++){
-            for (int j = 0, e = 1; j < 4; j++){
-                if(elemTabla[i][j].getValBlock() == 0){
+        for(int i = 0 ; i < hBoard; i++){
+            for (int j = 0, e = 1; j < wBoard; j++){
+                if(elemBoard[i][j].getValBlock() == 0){
                     e = j;
-                    while (e < 4 && elemTabla[i][e].getValBlock() == 0)
+                    while (e < wBoard && elemBoard[i][e].getValBlock() == 0)
                         e++;
-                    if(e < 4 && elemTabla[i][e].getValBlock() != 0)
-                        elemTabla[i][j].swapBlock(elemTabla[i][e]);
+                    if(e <wBoard && elemBoard[i][e].getValBlock() != 0)
+                        elemBoard[i][j].swapBlock(elemBoard[i][e]);
                 }
             }
         }
     }
 
     void moveRight(){
-        for(int i = 0 ; i < 4; i++){
-            for (int j = 3, e; j >= 0; j--){
-                if(elemTabla[i][j].getValBlock() == 0){
+        for(int i = 0 ; i < hBoard; i++){
+            for (int j = wBoard-1, e; j >= 0; j--){
+                if(elemBoard[i][j].getValBlock() == 0){
                     e = j;
-                    while (e >= 0 && elemTabla[i][e].getValBlock() == 0)
+                    while (e >= 0 && elemBoard[i][e].getValBlock() == 0)
                         e--;
-                    if(e >= 0 && elemTabla[i][e].getValBlock() != 0)
-                        elemTabla[i][j].swapBlock(elemTabla[i][e]);
+                    if(e >= 0 && elemBoard[i][e].getValBlock() != 0)
+                        elemBoard[i][j].swapBlock(elemBoard[i][e]);
                 }
             }
 
@@ -174,28 +187,28 @@ public:
     }
     
     void moveUp(){
-        for(int j = 0; j < 4; j++){
-            for(int i = 0, e; i < 4; i++){
-                if(elemTabla[i][j].getValBlock() == 0){
+        for(int j = 0; j < wBoard; j++){
+            for(int i = 0, e; i < hBoard; i++){
+                if(elemBoard[i][j].getValBlock() == 0){
                     e = i;
-                    while (e < 4 && elemTabla[e][j].getValBlock() == 0)
+                    while (e < hBoard && elemBoard[e][j].getValBlock() == 0)
                         e++;
-                    if(e < 4 && elemTabla[e][j].getValBlock() != 0)
-                        elemTabla[i][j].swapBlock(elemTabla[e][j]);
+                    if(e < hBoard && elemBoard[e][j].getValBlock() != 0)
+                        elemBoard[i][j].swapBlock(elemBoard[e][j]);
                 }
             }
         }
     }
 
     void moveDown(){
-        for(int j = 0; j < 4; j++){
-            for(int i = 3, e; i >= 0; i--){
-                if(elemTabla[i][j].getValBlock() == 0){
+        for(int j = 0; j < wBoard; j++){
+            for(int i = hBoard-1, e; i >= 0; i--){
+                if(elemBoard[i][j].getValBlock() == 0){
                     e = i;
-                    while (e >= 0 && elemTabla[e][j].getValBlock() == 0)
+                    while (e >= 0 && elemBoard[e][j].getValBlock() == 0)
                         e--;
-                    if(e >= 0 && elemTabla[e][j].getValBlock() != 0)
-                        elemTabla[i][j].swapBlock(elemTabla[e][j]);
+                    if(e >= 0 && elemBoard[e][j].getValBlock() != 0)
+                        elemBoard[i][j].swapBlock(elemBoard[e][j]);
                 }
             }
         }
@@ -203,12 +216,12 @@ public:
 
     int addLeft(){
         int add = 0;
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 3; j++){
-                if(elemTabla[i][j].getValBlock() == elemTabla[i][j+1].getValBlock()){
-                    add += elemTabla[i][j].getValBlock()*2;
-                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].getValBlock()*2);
-                    elemTabla[i][j+1].setBlock(i, j+1, 0);
+        for(int i = 0; i < hBoard; i++){
+            for(int j = 0; j < wBoard-1; j++){
+                if(elemBoard[i][j].getValBlock() == elemBoard[i][j+1].getValBlock()){
+                    add += elemBoard[i][j].getValBlock()*2;
+                    elemBoard[i][j].setBlock(i, j, elemBoard[i][j].getValBlock()*2);
+                    elemBoard[i][j+1].setBlock(i, j+1, 0);
                 }
                 
             }
@@ -219,12 +232,12 @@ public:
 
     int addRight(){
         int add = 0;
-        for(int i = 0; i < 4; i++){
-            for(int j = 3; j > 0; j--){
-                if(elemTabla[i][j].getValBlock() == elemTabla[i][j-1].getValBlock()){
-                    add += elemTabla[i][j].getValBlock()*2;
-                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].getValBlock()*2);
-                    elemTabla[i][j-1].setBlock(i, j-1, 0);
+        for(int i = 0; i < hBoard; i++){
+            for(int j = wBoard-1; j > 0; j--){
+                if(elemBoard[i][j].getValBlock() == elemBoard[i][j-1].getValBlock()){
+                    add += elemBoard[i][j].getValBlock()*2;
+                    elemBoard[i][j].setBlock(i, j, elemBoard[i][j].getValBlock()*2);
+                    elemBoard[i][j-1].setBlock(i, j-1, 0);
                 }
             }
         }
@@ -234,12 +247,12 @@ public:
 
     int addUp(){
         int add  = 0;
-        for(int j = 0; j < 4; j++){
-            for(int i = 0; i < 3; i++){
-                if(elemTabla[i][j].getValBlock() == elemTabla[i+1][j].getValBlock()){
-                    add += elemTabla[i][j].getValBlock()*2;
-                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].getValBlock()*2);
-                    elemTabla[i+1][j].setBlock(i+1, j, 0);
+        for(int j = 0; j < wBoard; j++){
+            for(int i = 0; i < hBoard-1; i++){
+                if(elemBoard[i][j].getValBlock() == elemBoard[i+1][j].getValBlock()){
+                    add += elemBoard[i][j].getValBlock()*2;
+                    elemBoard[i][j].setBlock(i, j, elemBoard[i][j].getValBlock()*2);
+                    elemBoard[i+1][j].setBlock(i+1, j, 0);
                 }
              }
         }
@@ -249,12 +262,12 @@ public:
 
     int addDown(){
         int add  = 0;
-        for(int j = 0; j < 4; j++){
-            for(int i = 3; i > 0; i--){
-                if(elemTabla[i][j].getValBlock() == elemTabla[i-1][j].getValBlock()){
-                    add += elemTabla[i][j].getValBlock()*2;
-                    elemTabla[i][j].setBlock(i, j, elemTabla[i][j].getValBlock()*2);
-                    elemTabla[i-1][j].setBlock(i-1, j, 0);
+        for(int j = 0; j < wBoard; j++){
+            for(int i = hBoard-1; i > 0; i--){
+                if(elemBoard[i][j].getValBlock() == elemBoard[i-1][j].getValBlock()){
+                    add += elemBoard[i][j].getValBlock()*2;
+                    elemBoard[i][j].setBlock(i, j, elemBoard[i][j].getValBlock()*2);
+                    elemBoard[i-1][j].setBlock(i-1, j, 0);
                 }
              }
         }
@@ -267,20 +280,21 @@ public:
 
 class Game{
 private:
-    Board tabla; 
+    Board board; 
     int scor;
+   // sf::RenderWindow window;
 
 public:
-    Game():  tabla(), scor(0){
+    Game():  board(), scor(0){
         std::cout << "Constructor Game\n";
     }
-    Game(const Game& other): tabla(other.tabla), scor(0){
+    Game(const Game& other): board(other.board), scor(0){
         std::cout << "Constructor de copiere Game\n";
     } // constructor de copiere
 
     Game& operator=(const Game& other){
         std::cout << "operator= copiere Game\n";
-        tabla = other.tabla;
+        board = other.board;
         scor = other.scor;
         return *this;
     } // operator de copiere
@@ -288,38 +302,45 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Game& gm) {
         os << "   PLAY 2048!\n"; 
         os << "   Scor: " << gm.scor << "\n";
-        os << gm.tabla;
+        os << gm.board;
         return os;
     } // operator << afisare
 
+    /*void setWindow(){
+        window.create(sf::VideoMode(800, 600), "Play 2048!");
+        window.clear (sf::Color(250, 248, 239));
+        board.setGraphicBoard();
+    }*/
+
     void play(){
+        void setWindow();
         while (1){
             char move = this->readMove();
             if(move == 'q')
                 break;
             if(move == 'a'){
-                this->tabla.moveLeft();
-                this->incScor(tabla.addLeft());
-                this->tabla.genNewElement();
+                this->board.moveLeft();
+                this->incScor(board.addLeft());
+                this->board.genNewElement();
                 clearScreen();
             }
             if(move == 'd'){
-                this->tabla.moveRight();
-                this->incScor(tabla.addRight());
-                this->tabla.genNewElement();
+                this->board.moveRight();
+                this->incScor(board.addRight());
+                this->board.genNewElement();
                 clearScreen();
 
             }
             if(move == 'w'){
-                this->tabla.moveUp();
-                this->incScor(tabla.addUp());
-                this->tabla.genNewElement();
+                this->board.moveUp();
+                this->incScor(board.addUp());
+                this->board.genNewElement();
                 clearScreen();
             }
             if(move == 's'){
-                this->tabla.moveDown();
-                this->incScor(tabla.addDown());
-                this->tabla.genNewElement();
+                this->board.moveDown();
+                this->incScor(board.addDown());
+                this->board.genNewElement();
                 clearScreen();
 
             }
