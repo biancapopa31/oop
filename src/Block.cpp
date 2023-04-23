@@ -2,12 +2,12 @@
 #include <algorithm>
 //#include <SFML/Graphics.hpp>
 
-    Block::Block(){
+  /*  Block::Block(){
         val = 0;
         pozX = pozY = 0;
-    }
+    }*/
 
-    Block::Block(const int val_ = 0, const int pozX_ = 0, const int pozY_ = 0): val(val_), pozX(pozX_), pozY(pozY_){
+    Block::Block(const int val_, const int pozX_, const int pozY_): val(val_), pozX(pozX_), pozY(pozY_){
         std::cout << "Constructor Block\n";
     } 
     Block::Block(const Block& other): val(other.val), pozX(other.pozX), pozY(other.pozY){

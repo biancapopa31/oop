@@ -9,8 +9,8 @@ private:
    // sf::RectangleShape graphicBoard;
 
 public:
-    Block();
-    Block(const int, const int, const int);
+   // Block();
+    Block(const int = 0, const int = 0, const int = 0);
     Block(const Block& other); // constructor de copiere
 
     Block& operator=(const Block& other);
