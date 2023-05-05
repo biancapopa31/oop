@@ -1,15 +1,17 @@
 #pragma once
 #include <iostream>
+#include <memory>
 #include "Board.h"
 
 class Game{
 private:
-    Board board; 
+    std::shared_ptr<Board> board;
     int scor;
-   // sf::RenderWindow window;
 
 public:
-    Game();
+    Game() = delete;
+
+    Game(bool);
 
     Game(const Game& other); // constructor de copiere
 
@@ -17,15 +19,13 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Game& gm); // operator << afisare
 
-    /*void setWindow();*/
-
     void play();
 
     void incScor(const int add);
 
-    char readMove();
+    static char readMove();
 
-    void clearScreen();
+    static void clearScreen();
 
-    ~Game();
+    ~Game() = default;
 };

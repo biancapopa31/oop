@@ -1,11 +1,12 @@
 #include "../headers/Game.h"
+#include "../headers/BoardClassic.h"
 #include <cstdlib>
-//#include <SFML/Graphics.hpp>
 
-    Game::Game():  board(), scor(0){
-        std::cout << "Constructor Game\n";
+    Game::Game(bool mode): scor(0) {
+        if (mode)
+            board = std::make_shared<BoardClassic>();
     }
-    Game::Game(const Game& other): board(other.board), scor(0){
+    Game::Game(const Game& other): board(other.board), scor(other.scor){
         std::cout << "Constructor de copiere Game\n";
     } // constructor de copiere
 
@@ -19,49 +20,44 @@
     std::ostream& operator<<(std::ostream& os, const Game& gm) {
         os << "   PLAY 2048!\n"; 
         os << "   Scor: " << gm.scor << "\n";
-        os << gm.board;
+        os << *gm.board;
         return os;
     } // operator << afisare
 
-    /*void Game::setWindow(){
-        window.create(sf::VideoMode(800, 600), "Play 2048!");
-        window.clear (sf::Color(250, 248, 239));
-        board.setGraphicBoard();
-    }*/
 
     void Game::play(){
-        void setWindow();
+        this->board->makeBoard();
         while (1){
+            std::cout << *this;
             char move = this->readMove();
             if(move == 'q')
                 break;
             if(move == 'a'){
-                this->board.moveLeft();
-                this->incScor(board.addLeft());
-                this->board.genNewElement();
+                this->board->moveLeft();
+                this->incScor(board->addLeft());
+                this->board->genNewElement();
                 clearScreen();
             }
             if(move == 'd'){
-                this->board.moveRight();
-                this->incScor(board.addRight());
-                this->board.genNewElement();
+                this->board->moveRight();
+                this->incScor(board->addRight());
+                this->board->genNewElement();
                 clearScreen();
 
             }
             if(move == 'w'){
-                this->board.moveUp();
-                this->incScor(board.addUp());
-                this->board.genNewElement();
+                this->board->moveUp();
+                this->incScor(board->addUp());
+                this->board->genNewElement();
                 clearScreen();
             }
             if(move == 's'){
-                this->board.moveDown();
-                this->incScor(board.addDown());
-                this->board.genNewElement();
+                this->board->moveDown();
+                this->incScor(board->addDown());
+                this->board->genNewElement();
                 clearScreen();
 
             }
-            std::cout << *this;
         }
     }
 
@@ -76,5 +72,3 @@
     void Game::clearScreen(){
         if (system("CLS")) system("clear");
     }
-
-    Game::~Game(){}

@@ -6,14 +6,12 @@
 int main() {
     //Block a(2);
     //std::cout << "Am creat Block\n";
-    Board B;
     //g = h;
     //std::cout << g;
-    Game G;
+    Game G(true);
     //B.makeCustomBoard();
-   // B.makeBoard();
-    G.clearScreen();
-    std::cout << G;
+   // B.makeBoard();s
+
     G.play();
     return 0;
 }

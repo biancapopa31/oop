@@ -3,15 +3,11 @@
 #include "Block.h"
 
 class Board{
+protected:
 
-//friend class Game;
-
-private:
     static const int hBoard = 4;
     static const int wBoard = 4;
     Block elemBoard[hBoard][wBoard];
-   // sf::RectangleShape graphicBoard;
-
 
 public:
     Board();
@@ -23,11 +19,10 @@ public:
 
     /*void makeCustomBoard();*/
 
-   /* void setGraphicBoard();*/
 
-    void makeBoard();
+    virtual void makeBoard();
 
-    void genNewElement();
+    virtual void genNewElement() = 0;
     
     void moveLeft();
 
@@ -37,13 +32,13 @@ public:
 
     void moveDown();
 
-    int addLeft();
+    virtual int addLeft() = 0;
 
-    int addRight();
+    virtual int addRight() = 0;
 
-    int addUp();
+    virtual int addUp() = 0;
 
-    int addDown();
+    virtual int addDown() = 0;
 
-    ~Board();
+    virtual ~Board() = default;
 };

@@ -1,11 +1,7 @@
 #include "../headers/Board.h"
-#include "../headers/Block.h"
-
-//#include <SFML/Graphics.hpp>
 
 
     Board::Board():elemBoard(){
-        makeBoard();
         std::cout << "Constructor Board\n";
     }
 
@@ -63,13 +59,6 @@
         elemBoard[3][0].setBlock(3, 0, 2);
     }*/
 
-   /* void Board::setGraphicBoard(){
-        graphicBoard.setSize(sf::Vector2f(430, 430));
-        graphicBoard.setOutlineColor(sf::Color(187, 173, 160));
-        graphicBoard.setFillColor(sf::Color(187, 173, 160));
-        graphicBoard.setOutlineThickness(10);
-        graphicBoard.setPosition(185, 85);
-    }*/
 
     void Board::makeBoard(){
         genNewElement();
@@ -209,5 +198,3 @@
         moveDown();
         return add;
     }
-
-    Board::~Board(){}

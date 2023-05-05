@@ -1,6 +1,5 @@
 #include "../headers/Block.h"
 #include <algorithm>
-//#include <SFML/Graphics.hpp>
 
   /*  Block::Block(){
         val = 0;
