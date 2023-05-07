@@ -2,8 +2,8 @@
 #include "../headers/BoardClassic.h"
 #include <cstdlib>
 
-    Game::Game(bool mode): scor(0) {
-        if (mode)
+    Game::Game(char mode): scor(0) {
+        if (mode == 'c')
             board = std::make_shared<BoardClassic>();
     }
     Game::Game(const Game& other): board(other.board), scor(other.scor){

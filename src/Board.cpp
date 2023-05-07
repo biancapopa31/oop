@@ -2,11 +2,11 @@
 
 
     Board::Board():elemBoard(){
-        std::cout << "Constructor Board\n";
+        //std::cout << "Constructor Board\n";
     }
 
     Board::Board(const Board& other){
-        std::cout << "Constructor de copiere Board\n";
+       // std::cout << "Constructor de copiere Board\n";
         for(int i = 0; i < hBoard; i++)
             for(int j = 0; j < wBoard; j++){
                 elemBoard[i][j] = other.elemBoard[i][j];
@@ -14,7 +14,7 @@
     } // constructor de copiere
 
     Board& Board::operator=(const Board& other){
-        std::cout << "operator= copiere Board\n";
+       // std::cout << "operator= copiere Board\n";
         
         for(int i = 0; i < hBoard; i++)
             for(int j = 0; j < wBoard; j++){
