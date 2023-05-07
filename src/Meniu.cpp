@@ -47,7 +47,6 @@ void Meniu::printMeniu() {
 }
 
 void Meniu::readStats() {
-    int nr;
     std::string input;
     std::fstream fisier;
     fisier.open("../fis/stats.txt",std::ios::in) ;
