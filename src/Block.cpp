@@ -1,10 +1,5 @@
 #include "../headers/Block.h"
-#include <algorithm>
 
-  /*  Block::Block(){
-        val = 0;
-        pozX = pozY = 0;
-    }*/
 
     Block::Block(const int val_, const int pozX_, const int pozY_): val(val_), pozX(pozX_), pozY(pozY_){
         std::cout << "Constructor Block\n";
@@ -13,13 +8,17 @@
         std::cout << "Constructor de copiere Block\n";
     } // constructor de copiere
 
-    Block& Block::operator=(const Block& other) {
-        val = other.val;
-        pozX = other.pozX;
-        pozY = other.pozY;
+    Block& Block::operator=( Block& other) {
+        swap(*this, other);
         std::cout << "operator= copiere Block\n";
         return *this;
     }
+
+    void swap(Block& b1, Block& b2){
+        std::swap(b1.val, b2.val);
+        std::swap(b1.pozX, b2.pozY);
+        std::swap(b1.pozY, b2.pozY);
+}
 
     std::ostream& operator<<(std::ostream& os, const Block& el) {
         os << el.val << " ";
@@ -31,20 +30,13 @@
         pozY = pozY_;
         val = val_;
     }
-    
-    Block& Block::swapBlock(Block& other){
-        std::swap(val, other.val);
-        std::swap(pozX, other.pozX);
-        std::swap(pozY, other.pozY);
-        return *this;
-    }
 
     int Block::getValBlock () const{
         return val;
     }
 
-    bool Block::isEmpty(){
+    bool Block::isEmpty() const{
         return val == 0;
     }
 
-    Block::~Block(){} 
+    Block::~Block()= default;

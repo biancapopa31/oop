@@ -1,7 +1,16 @@
 #include "../headers/Board.h"
 
 
-    Board::Board():elemBoard(){
+    Board::Board(){
+        for (int i = 0; i < hBoard; i++){
+            std::vector <std::shared_ptr<Block>> aux;
+            for (int j = 0; j <wBoard; j++){
+                std::shared_ptr<Block> b(new Block(0,i,j));
+                aux.push_back(b);
+            }
+            elemBoard.push_back(aux);
+        }
+
         //std::cout << "Constructor Board\n";
     }
 
@@ -33,7 +42,7 @@
         
         for (int i = 0; i < Board::hBoard; i++){
             for(int j = 0; j< Board::wBoard; j++)
-                os << "| " << board.elemBoard[i][j] << "|";
+                os << "| " << *board.elemBoard[i][j] << "|";
             os << "\n";
             for (int j = 0; j < 20 ; j++)
                 os << "_";
@@ -66,30 +75,16 @@
 
     }
 
-    void Board::genNewElement(){
-        int X = rand() %3;
-        int Y = rand() %3;
-        int val = 1 + rand() %100;
-        while (!elemBoard[X][Y].isEmpty())
-        {
-            X = rand() %3;
-            Y = rand() %3;
-        }
-        if (val%10 == 0)
-            elemBoard[X][Y].setBlock(X, Y, 4);
-        else
-            elemBoard[X][Y].setBlock(X, Y, 2);
-    }
     
     void Board::moveLeft(){
         for(int i = 0 ; i < hBoard; i++){
-            for (int j = 0, e = 1; j < wBoard; j++){
-                if(elemBoard[i][j].getValBlock() == 0){
+            for (int j = 0, e; j < wBoard; j++){
+                if(elemBoard[i][j]->getValBlock() == 0){
                     e = j;
-                    while (e < wBoard && elemBoard[i][e].getValBlock() == 0)
+                    while (e < wBoard && elemBoard[i][e]->getValBlock() == 0)
                         e++;
-                    if(e <wBoard && elemBoard[i][e].getValBlock() != 0)
-                        elemBoard[i][j].swapBlock(elemBoard[i][e]);
+                    if(e <wBoard && elemBoard[i][e]->getValBlock() != 0)
+                        swap(elemBoard[i][j], elemBoard[i][e]);
                 }
             }
         }
@@ -98,12 +93,12 @@
     void Board::moveRight(){
         for(int i = 0 ; i < hBoard; i++){
             for (int j = wBoard-1, e; j >= 0; j--){
-                if(elemBoard[i][j].getValBlock() == 0){
+                if(elemBoard[i][j]->getValBlock() == 0){
                     e = j;
-                    while (e >= 0 && elemBoard[i][e].getValBlock() == 0)
+                    while (e >= 0 && elemBoard[i][e]->getValBlock() == 0)
                         e--;
-                    if(e >= 0 && elemBoard[i][e].getValBlock() != 0)
-                        elemBoard[i][j].swapBlock(elemBoard[i][e]);
+                    if(e >= 0 && elemBoard[i][e]->getValBlock() != 0)
+                        swap(elemBoard[i][j], elemBoard[i][e]);
                 }
             }
 
@@ -113,12 +108,12 @@
     void Board::moveUp(){
         for(int j = 0; j < wBoard; j++){
             for(int i = 0, e; i < hBoard; i++){
-                if(elemBoard[i][j].getValBlock() == 0){
+                if(elemBoard[i][j]->getValBlock() == 0){
                     e = i;
-                    while (e < hBoard && elemBoard[e][j].getValBlock() == 0)
+                    while (e < hBoard && elemBoard[e][j]->getValBlock() == 0)
                         e++;
-                    if(e < hBoard && elemBoard[e][j].getValBlock() != 0)
-                        elemBoard[i][j].swapBlock(elemBoard[e][j]);
+                    if(e < hBoard && elemBoard[e][j]->getValBlock() != 0)
+                        swap(elemBoard[i][j], elemBoard[e][j]);
                 }
             }
         }
@@ -127,74 +122,14 @@
     void Board::moveDown(){
         for(int j = 0; j < wBoard; j++){
             for(int i = hBoard-1, e; i >= 0; i--){
-                if(elemBoard[i][j].getValBlock() == 0){
+                if(elemBoard[i][j]->getValBlock() == 0){
                     e = i;
-                    while (e >= 0 && elemBoard[e][j].getValBlock() == 0)
+                    while (e >= 0 && elemBoard[e][j]->getValBlock() == 0)
                         e--;
-                    if(e >= 0 && elemBoard[e][j].getValBlock() != 0)
-                        elemBoard[i][j].swapBlock(elemBoard[e][j]);
+                    if(e >= 0 && elemBoard[e][j]->getValBlock() != 0)
+                        swap(elemBoard[i][j], elemBoard[e][j]);
                 }
             }
         }
     }
 
-    int Board::addLeft(){
-        int add = 0;
-        for(int i = 0; i < hBoard; i++){
-            for(int j = 0; j < wBoard-1; j++){
-                if(elemBoard[i][j].getValBlock() == elemBoard[i][j+1].getValBlock()){
-                    add += elemBoard[i][j].getValBlock()*2;
-                    elemBoard[i][j].setBlock(i, j, elemBoard[i][j].getValBlock()*2);
-                    elemBoard[i][j+1].setBlock(i, j+1, 0);
-                }
-                
-            }
-        }
-        moveLeft();
-        return add;
-    }
-
-    int Board::addRight(){
-        int add = 0;
-        for(int i = 0; i < hBoard; i++){
-            for(int j = wBoard-1; j > 0; j--){
-                if(elemBoard[i][j].getValBlock() == elemBoard[i][j-1].getValBlock()){
-                    add += elemBoard[i][j].getValBlock()*2;
-                    elemBoard[i][j].setBlock(i, j, elemBoard[i][j].getValBlock()*2);
-                    elemBoard[i][j-1].setBlock(i, j-1, 0);
-                }
-            }
-        }
-        moveRight();
-        return add;
-    }
-
-    int Board::addUp(){
-        int add  = 0;
-        for(int j = 0; j < wBoard; j++){
-            for(int i = 0; i < hBoard-1; i++){
-                if(elemBoard[i][j].getValBlock() == elemBoard[i+1][j].getValBlock()){
-                    add += elemBoard[i][j].getValBlock()*2;
-                    elemBoard[i][j].setBlock(i, j, elemBoard[i][j].getValBlock()*2);
-                    elemBoard[i+1][j].setBlock(i+1, j, 0);
-                }
-             }
-        }
-        moveUp();
-        return add;
-    }
-
-    int Board::addDown(){
-        int add  = 0;
-        for(int j = 0; j < wBoard; j++){
-            for(int i = hBoard-1; i > 0; i--){
-                if(elemBoard[i][j].getValBlock() == elemBoard[i-1][j].getValBlock()){
-                    add += elemBoard[i][j].getValBlock()*2;
-                    elemBoard[i][j].setBlock(i, j, elemBoard[i][j].getValBlock()*2);
-                    elemBoard[i-1][j].setBlock(i-1, j, 0);
-                }
-             }
-        }
-        moveDown();
-        return add;
-    }

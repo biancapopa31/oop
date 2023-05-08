@@ -6,13 +6,13 @@
         if (mode == 'c')
             board = std::make_shared<BoardClassic>();
     }
-    Game::Game(const Game& other): board(other.board), scor(other.scor){
+    Game::Game(const Game& other): board(other.board->clone()), scor(other.scor){
         std::cout << "Constructor de copiere Game\n";
     } // constructor de copiere
 
     Game& Game::operator=(const Game& other){
         std::cout << "operator= copiere Game\n";
-        board = other.board;
+        board = other.board->clone();
         scor = other.scor;
         return *this;
     } // operator de copiere

@@ -9,7 +9,7 @@ private:
 
     static char readMove();
 
-    void incScor(const int add);
+    void incScor(int add);
 
 public:
 

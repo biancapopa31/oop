@@ -17,6 +17,7 @@ class Meniu {
     int nrFiboGame;
 
 public:
+    Meniu() = default;
 
     void start();
 
@@ -30,7 +31,7 @@ public:
 
     static char readInput();
 
-    void end(int , std::shared_ptr<Board>);
+    void end(int , const std::shared_ptr<Board>&);
 
     void readStats();
 

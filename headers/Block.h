@@ -6,24 +6,25 @@ class Block{
 private:    
     int val;
     int pozX, pozY;
-   // sf::RectangleShape graphicBoard;
 
 public:
-   // Block();
-    Block(const int = 0, const int = 0, const int = 0);
+    explicit Block(int = 0, int = 0, int = 0);
+
     Block(const Block& other); // constructor de copiere
 
-    Block& operator=(const Block& other);
+    Block& operator=(Block& other);
+
+    friend void swap(Block&, Block&);
 
     friend std::ostream& operator<<(std::ostream& os, const Block& el);
 
-    void setBlock(const int pozX_, const int pozY_, const int val_);
+    void setBlock(int pozX_, int pozY_, int val_);
     
     Block& swapBlock(Block& other);
 
     int getValBlock ()const;
 
-    bool isEmpty();
+    bool isEmpty() const;
 
     ~Block();
 };

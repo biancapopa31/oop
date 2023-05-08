@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <memory>
+#include <vector>
 #include "Block.h"
 
 class Board{
@@ -7,7 +9,7 @@ protected:
 
     static const int hBoard = 4;
     static const int wBoard = 4;
-    Block elemBoard[hBoard][wBoard];
+    std::vector<std::vector<std::shared_ptr<Block>>> elemBoard;
 
 public:
     Board();
@@ -16,6 +18,8 @@ public:
     Board& operator=(const Board& other); // operator =
 
     friend std::ostream& operator<<(std::ostream& os, const Board& board);
+
+    virtual std::shared_ptr<Board> clone() const = 0;
 
     /*void makeCustomBoard();*/
 

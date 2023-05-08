@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "../headers/Meniu.h"
 #include "../headers/Game.h"
 #include "../headers/BoardClassic.h"
@@ -100,7 +101,7 @@ char Meniu::readInput() {
     return  input;
 }
 
-void Meniu::end(int scor, std::shared_ptr<Board> board) {
+void Meniu::end(int scor, const std::shared_ptr<Board>& board) {
 
     if(scor > maxScor)
         maxScor = scor;
@@ -109,6 +110,7 @@ void Meniu::end(int scor, std::shared_ptr<Board> board) {
 
     printStatsInFile();
 }
+
 
 
 
