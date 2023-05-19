@@ -2,15 +2,15 @@
 
 
     Block::Block(const int val_, const int pozX_, const int pozY_): val(val_), pozX(pozX_), pozY(pozY_){
-        std::cout << "Constructor Block\n";
+       // std::cout << "Constructor Block\n";
     } 
     Block::Block(const Block& other): val(other.val), pozX(other.pozX), pozY(other.pozY){
-        std::cout << "Constructor de copiere Block\n";
+       // std::cout << "Constructor de copiere Block\n";
     } // constructor de copiere
 
     Block& Block::operator=( Block& other) {
         swap(*this, other);
-        std::cout << "operator= copiere Block\n";
+       // std::cout << "operator= copiere Block\n";
         return *this;
     }
 

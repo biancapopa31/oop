@@ -37,6 +37,8 @@ public:
 
     static int strToChr(const std::string&);
 
+    static void clearScreen();
+
 
 };
 

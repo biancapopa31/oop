@@ -80,7 +80,7 @@ endfunction()
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
-add_executable(${PROJECT_NAME} main.cpp src/Block.cpp headers/Block.h src/Board.cpp headers/Board.h src/Game.cpp headers/Game.h src/BoardClassic.cpp headers/BoardClassic.h src/Meniu.cpp headers/Meniu.h)
+add_executable(${PROJECT_NAME} main.cpp src/Block.cpp headers/Block.h src/Board.cpp headers/Board.h src/Game.cpp headers/Game.h src/BoardClassic.cpp headers/BoardClassic.h src/Meniu.cpp headers/Meniu.h src/Erori.cpp headers/Erori.h src/BoardFibonacci.cpp headers/BoardFibonacci.h libs/rlutil.h)
 
 ###############################################################################
 
@@ -113,7 +113,7 @@ set_custom_stdlib_and_sanitizers(${PROJECT_NAME} true)
 ###############################################################################
 
 # use SYSTEM so clang-tidy does not report warnings from these directories
-#target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ext/<SomeHppLib>/include)
+target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE libs)
 #target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${<SomeLib>_SOURCE_DIR}/include)
 #target_link_directories(${PROJECT_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
 #target_link_libraries(${PROJECT_NAME} <SomeLib>)

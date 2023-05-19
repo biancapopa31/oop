@@ -19,8 +19,6 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Block& el);
 
     void setBlock(int pozX_, int pozY_, int val_);
-    
-    Block& swapBlock(Block& other);
 
     int getValBlock ()const;
 

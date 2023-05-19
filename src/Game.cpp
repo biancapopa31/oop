@@ -1,17 +1,22 @@
 #include "../headers/Game.h"
 #include "../headers/BoardClassic.h"
-#include <cstdlib>
+//#include "../headers/BoardFibonacci.h"
+
+#include <rlutil.h>
 
     Game::Game(char mode): scor(0) {
         if (mode == 'c')
             board = std::make_shared<BoardClassic>();
+       /* else
+            board = std::make_shared<BoardFibonacci>();*/
+
     }
     Game::Game(const Game& other): board(other.board->clone()), scor(other.scor){
-        std::cout << "Constructor de copiere Game\n";
+      //  std::cout << "Constructor de copiere Game\n";
     } // constructor de copiere
 
     Game& Game::operator=(const Game& other){
-        std::cout << "operator= copiere Game\n";
+        //std::cout << "operator= copiere Game\n";
         board = other.board->clone();
         scor = other.scor;
         return *this;
@@ -26,6 +31,7 @@
 
 
     void Game::play(){
+        clearScreen();
         this->board->makeBoard();
         while (1){
             std::cout << *this;
@@ -70,5 +76,14 @@
         return move;
     }
     void Game::clearScreen(){
-        if (system("CLS")) system("clear");
+       // std::cout << "***********************";
+        rlutil::cls();
     }
+
+int Game::getScor() const {
+    return scor;
+}
+
+const std::shared_ptr<Board> &Game::getBoard() const {
+    return board;
+}

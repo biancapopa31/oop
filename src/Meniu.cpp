@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <rlutil.h>
 #include "../headers/Meniu.h"
 #include "../headers/Game.h"
 #include "../headers/BoardClassic.h"
@@ -17,24 +18,27 @@ void Meniu::start() {
     printMeniu();
 
     input = readInput();
+    clearScreen();
 
     if(input == 'q')
         return;
     else if(input == 's'){
         printStats();
         input = readInput();
+        clearScreen();
         if(input == 'b')
             start();
 
     } else{
         printGameModes();
         input = readInput();
+        clearScreen();
         if(input == 'b')
             start();
         else{
             Game g(input);
             g.play();
-            end(g.scor, g.board);
+            end(g.getScor(), g.getBoard());
         }
     }
 }
@@ -109,6 +113,10 @@ void Meniu::end(int scor, const std::shared_ptr<Board>& board) {
         nrClassicGame++;
 
     printStatsInFile();
+}
+
+void Meniu::clearScreen() {
+    rlutil::cls();
 }
 
 

@@ -133,3 +133,65 @@
         }
     }
 
+int Board::addLeft() {
+    int add = 0;
+    for(int i = 0; i < hBoard; i++){
+        for(int j = 0; j < wBoard-1; j++){
+            if(canBeAdded(elemBoard[i][j], elemBoard[i][j+1])){
+                add += elemBoard[i][j]->getValBlock() + elemBoard[i][j+1]->getValBlock() ;
+                elemBoard[i][j]->setBlock(i, j, elemBoard[i][j]->getValBlock() + elemBoard[i][j+1]->getValBlock());
+                elemBoard[i][j+1]->setBlock(i, j+1, 0);
+            }
+
+        }
+    }
+    moveLeft();
+    return add;
+}
+
+int Board::addRight() {
+    int add = 0;
+    for(int i = 0; i < hBoard; i++){
+        for(int j = wBoard-1; j > 0; j--){
+            if(canBeAdded(elemBoard[i][j], elemBoard[i][j-1])){
+                add += elemBoard[i][j]->getValBlock() + elemBoard[i][j-1]->getValBlock();
+                elemBoard[i][j]->setBlock(i, j, elemBoard[i][j]->getValBlock() + elemBoard[i][j-1]->getValBlock());
+                elemBoard[i][j-1]->setBlock(i, j-1, 0);
+            }
+        }
+    }
+    moveRight();
+    return add;
+}
+
+int Board::addUp() {
+    int add  = 0;
+    for(int j = 0; j < wBoard; j++){
+        for(int i = 0; i < hBoard-1; i++){
+            if(canBeAdded(elemBoard[i][j], elemBoard[i+1][j])){
+                add += elemBoard[i][j]->getValBlock() + elemBoard[i+1][j]->getValBlock();
+                elemBoard[i][j]->setBlock(i, j, elemBoard[i][j]->getValBlock() + elemBoard[i+1][j]->getValBlock());
+                elemBoard[i+1][j]->setBlock(i+1, j, 0);
+            }
+        }
+    }
+    moveUp();
+    return add;
+}
+
+int Board::addDown() {
+    int add  = 0;
+    for(int j = 0; j < wBoard; j++){
+        for(int i = hBoard-1; i > 0; i--){
+            if(canBeAdded(elemBoard[i][j], elemBoard[i-1][j])){
+                add += elemBoard[i][j]->getValBlock() + elemBoard[i-1][j]->getValBlock();
+                elemBoard[i][j]->setBlock(i, j, elemBoard[i][j]->getValBlock() + elemBoard[i-1][j]->getValBlock());
+                elemBoard[i-1][j]->setBlock(i-1, j, 0);
+            }
+        }
+    }
+    moveDown();
+    return add;
+}
+
+

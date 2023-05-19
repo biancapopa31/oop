@@ -11,10 +11,10 @@ private:
 
     void incScor(int add);
 
-public:
-
     std::shared_ptr<Board> board;
     int scor;
+
+public:
 
     Game() = delete;
 
@@ -25,6 +25,10 @@ public:
     Game& operator=(const Game& other); // operator =
 
     friend std::ostream& operator<<(std::ostream& os, const Game& gm); // operator << afisare
+
+    int getScor() const;
+
+    const std::shared_ptr<Board> &getBoard() const;
 
     void play();
 

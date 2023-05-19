@@ -23,7 +23,6 @@ public:
 
     /*void makeCustomBoard();*/
 
-
     virtual void makeBoard();
 
     virtual void genNewElement() = 0;
@@ -36,13 +35,15 @@ public:
 
     void moveDown();
 
-    virtual int addLeft() = 0;
+    virtual int addLeft();
 
-    virtual int addRight() = 0;
+    virtual int addRight();
 
-    virtual int addUp() = 0;
+    virtual int addUp();
 
-    virtual int addDown() = 0;
+    virtual int addDown();
+
+    virtual bool canBeAdded(std::shared_ptr<Block> , std::shared_ptr<Block>) = 0;
 
     virtual ~Board() = default;
 };
