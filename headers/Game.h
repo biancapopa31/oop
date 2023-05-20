@@ -32,6 +32,5 @@ public:
 
     void play();
 
-
     ~Game() = default;
 };

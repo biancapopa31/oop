@@ -26,6 +26,10 @@ public:
     virtual void makeBoard();
 
     virtual void genNewElement() = 0;
+
+     virtual bool isFull();
+
+    virtual void canMakeMove() = 0;
     
     void moveLeft();
 

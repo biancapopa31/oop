@@ -15,12 +15,8 @@ public:
     std::shared_ptr<Board> clone() const override;
 
     void genNewElement() override;
-/*
-    int addRight() override;
 
-    int addUp() override;
-
-    int addDown() override;*/
+    void canMakeMove() override;
 
     bool canBeAdded(std::shared_ptr<Block> , std::shared_ptr<Block>) override;
 

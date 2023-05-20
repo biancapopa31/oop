@@ -1,16 +1,18 @@
 #include "../headers/Block.h"
+#include "../headers/Erori.h"
 
 
     Block::Block(const int val_, const int pozX_, const int pozY_): val(val_), pozX(pozX_), pozY(pozY_){
-       // std::cout << "Constructor Block\n";
+       if(pozX_ > maxX)
+           throw EroareBlock("Index out of range!");
+       if(pozY_ >maxY)
+           throw EroareBlock("Index out of range!");
     } 
     Block::Block(const Block& other): val(other.val), pozX(other.pozX), pozY(other.pozY){
-       // std::cout << "Constructor de copiere Block\n";
     } // constructor de copiere
 
     Block& Block::operator=( Block& other) {
         swap(*this, other);
-       // std::cout << "operator= copiere Block\n";
         return *this;
     }
 
@@ -39,4 +41,5 @@
         return val == 0;
     }
 
-    Block::~Block()= default;
+
+Block::~Block()= default;

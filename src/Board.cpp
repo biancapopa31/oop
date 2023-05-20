@@ -74,6 +74,15 @@
         genNewElement();
 
     }
+    bool Board::isFull(){
+        for (int i = 0; i < hBoard; i++){
+            for (int j = 0; j < wBoard; j++){
+                if(elemBoard[i][j]->isEmpty())
+                    return false;
+            }
+        }
+        return true;
+    }
 
     
     void Board::moveLeft(){

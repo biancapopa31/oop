@@ -1,5 +1,6 @@
 #include "../headers/Game.h"
 #include "../headers/BoardClassic.h"
+#include "../headers/Erori.h"
 //#include "../headers/BoardFibonacci.h"
 
 #include <rlutil.h>
@@ -12,11 +13,9 @@
 
     }
     Game::Game(const Game& other): board(other.board->clone()), scor(other.scor){
-      //  std::cout << "Constructor de copiere Game\n";
     } // constructor de copiere
 
     Game& Game::operator=(const Game& other){
-        //std::cout << "operator= copiere Game\n";
         board = other.board->clone();
         scor = other.scor;
         return *this;
@@ -33,41 +32,40 @@
     void Game::play(){
         clearScreen();
         this->board->makeBoard();
-        while (1){
-            std::cout << *this;
-            char move = this->readMove();
+        std::cout << *this;
+        while (true){
+
+            char move = readMove();
             if(move == 'q')
-                break;
+                throw EroareGame("Ai oprit jocul!");
             if(move == 'a'){
                 this->board->moveLeft();
                 this->incScor(board->addLeft());
-                this->board->genNewElement();
-                clearScreen();
             }
             if(move == 'd'){
                 this->board->moveRight();
                 this->incScor(board->addRight());
-                this->board->genNewElement();
-                clearScreen();
 
             }
             if(move == 'w'){
                 this->board->moveUp();
                 this->incScor(board->addUp());
-                this->board->genNewElement();
-                clearScreen();
             }
             if(move == 's'){
                 this->board->moveDown();
                 this->incScor(board->addDown());
-                this->board->genNewElement();
-                clearScreen();
 
             }
+            this->board->genNewElement();
+            clearScreen();
+            std::cout << *this;
+
+            board->canMakeMove();
+
         }
     }
 
-    void Game::incScor(const int add){
+     void Game::incScor(const int add){
         this->scor += add;
     }
     char Game::readMove(){

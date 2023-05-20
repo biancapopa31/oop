@@ -9,6 +9,7 @@
 #include "../headers/Meniu.h"
 #include "../headers/Game.h"
 #include "../headers/BoardClassic.h"
+#include "../headers/Erori.h"
 
 
 void Meniu::start() {
@@ -37,7 +38,22 @@ void Meniu::start() {
             start();
         else{
             Game g(input);
-            g.play();
+            try{
+                g.play();
+            }
+            catch (EroareBlock &err){
+                clearScreen();
+                std::cout << err.what() << "\nNu s-a putut crea jocul!";
+            }
+            catch (EroareBoard &err) {
+                clearScreen();
+                std::cout << err.what() << "\nAi pierdut!";
+            }
+            catch (EroareGame &err) {
+                clearScreen();
+                std::cout << err.what();
+
+            }
             end(g.getScor(), g.getBoard());
         }
     }
