@@ -34,10 +34,4 @@ bool BoardClassic::canBeAdded(std::shared_ptr<Block> el1, std::shared_ptr<Block>
     return el1->getValBlock() == el2->getValBlock();
 }
 
-void BoardClassic::canMakeMove() {
-    if(!this->isFull())
-        return;
-
-    throw EroareBoard("Nu se mai pot face mutari!");
-}
 

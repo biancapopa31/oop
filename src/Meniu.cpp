@@ -10,6 +10,7 @@
 #include "../headers/Game.h"
 #include "../headers/BoardClassic.h"
 #include "../headers/Erori.h"
+#include "../headers/BoardFibonacci.h"
 
 
 void Meniu::start() {
@@ -127,6 +128,8 @@ void Meniu::end(int scor, const std::shared_ptr<Board>& board) {
         maxScor = scor;
     if(std::dynamic_pointer_cast<BoardClassic>(board))
         nrClassicGame++;
+    if(std::dynamic_pointer_cast<BoardFibonacci>(board))
+        nrFiboGame++;
 
     printStatsInFile();
 }

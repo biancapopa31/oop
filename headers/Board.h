@@ -29,7 +29,7 @@ public:
 
      virtual bool isFull();
 
-    virtual void canMakeMove() = 0;
+    virtual void canMakeMove() ;
     
     void moveLeft();
 

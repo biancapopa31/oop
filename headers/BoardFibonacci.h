@@ -1,14 +1,14 @@
 //
-// Created by bianca on 04.05.2023.
+// Created by bianca on 13.05.2023.
 //
 
-#ifndef OOP_BOARDCLASSIC_H
-#define OOP_BOARDCLASSIC_H
+#ifndef OOP_BOARDFIBONACCI_H
+#define OOP_BOARDFIBONACCI_H
+
 
 #include "Board.h"
 
-class BoardClassic: public Board{
-
+class BoardFibonacci: public Board {
 public:
     using Board::Board;
 
@@ -21,4 +21,5 @@ public:
 
 };
 
-#endif //OOP_BOARDCLASSIC_H
+
+#endif //OOP_BOARDFIBONACCI_H

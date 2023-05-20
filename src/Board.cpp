@@ -1,7 +1,8 @@
 #include "../headers/Board.h"
+#include "../headers/Erori.h"
 
 
-    Board::Board(){
+Board::Board(){
         for (int i = 0; i < hBoard; i++){
             std::vector <std::shared_ptr<Block>> aux;
             for (int j = 0; j <wBoard; j++){
@@ -201,6 +202,14 @@ int Board::addDown() {
     }
     moveDown();
     return add;
+}
+
+void Board::canMakeMove() {
+    if(!this->isFull())
+        return;
+
+    throw EroareBoard("Nu se mai pot face mutari!");
+
 }
 
 
