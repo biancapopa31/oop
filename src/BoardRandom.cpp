@@ -1,0 +1,39 @@
+//
+// Created by bianca on 01.06.2023.
+//
+
+#include <random>
+#include "../headers/BoardRandom.h"
+
+std::shared_ptr<Board> BoardRandom::clone() const {
+    return std::make_shared<BoardRandom>(*this);
+}
+
+void BoardRandom::genNewElement() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> index(0,3);
+    std::uniform_int_distribution<> valoare(1,100);
+
+    int X = index(gen);
+    int Y = index(gen);
+    int val =  valoare(gen);
+    while (!elemBoard[X][Y]->isEmpty()){
+        X = index(gen);
+        Y = index(gen);
+    }
+    if(val%10 == 0){
+        elemBoard[X][Y]->setBlock(X, Y, 4);
+    }
+    else if(val%64 == 0){
+        elemBoard[X][Y]->setBlock(X, Y, 64);
+    }
+    else if (val%32 == 0)
+        elemBoard[X][Y]->setBlock(X, Y, 32);
+    else
+        elemBoard[X][Y]->setBlock(X, Y, 2);
+}
+
+bool BoardRandom::canBeAdded(std::shared_ptr<Block> el1, std::shared_ptr<Block>el2) {
+    return el1->getValBlock() == el2->getValBlock();
+}

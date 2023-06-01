@@ -15,6 +15,7 @@ class Meniu {
     int maxScor;
     int nrClassicGame;
     int nrFiboGame;
+    int nrRandomGame;
 
 public:
     Meniu() = default;

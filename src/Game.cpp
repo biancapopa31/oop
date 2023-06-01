@@ -2,14 +2,16 @@
 #include "../headers/BoardClassic.h"
 #include "../headers/Erori.h"
 #include "../headers/BoardFibonacci.h"
-
+#include "../headers/BoardRandom.h"
 #include <rlutil.h>
 
     Game::Game(char mode): scor(0) {
         if (mode == 'c')
             board = std::make_shared<BoardClassic>();
-        else
+        else if(mode == 'f')
             board = std::make_shared<BoardFibonacci>();
+        else
+            board = std::make_shared<BoardRandom>();
 
     }
     Game::Game(const Game& other): board(other.board->clone()), scor(other.scor){

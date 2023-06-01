@@ -11,6 +11,7 @@
 #include "../headers/BoardClassic.h"
 #include "../headers/Erori.h"
 #include "../headers/BoardFibonacci.h"
+#include "../headers/BoardRandom.h"
 
 
 void Meniu::start() {
@@ -82,6 +83,9 @@ void Meniu::readStats() {
     std::getline(fisier,input,' ');
     nrFiboGame = strToChr(input);
 
+    std::getline(fisier,input,' ');
+    nrRandomGame = strToChr(input);
+
     fisier.close();
 }
 int Meniu::strToChr(const std::string& str) {
@@ -95,7 +99,7 @@ int Meniu::strToChr(const std::string& str) {
 void Meniu::printStatsInFile() const {
     std::fstream fisier;
     fisier.open("../fis/stats.txt",std::ios::out | std::ios::trunc) ;
-    fisier << maxScor << " " <<nrClassicGame << " " << nrFiboGame;
+    fisier << maxScor << " " <<nrClassicGame << " " << nrFiboGame << " " << nrRandomGame;
 }
 
 void Meniu::printStats() const {
@@ -103,6 +107,7 @@ void Meniu::printStats() const {
     std::cout << "Highscore: " << maxScor << "\n";
     std::cout << "Games played in Classic Mode: " << nrClassicGame << "\n";
     std::cout << "Games played in Fibonacci mode: " << nrFiboGame << "\n";
+    std::cout << "Games played in Random mode: " << nrRandomGame << "\n";
     std::cout << "Back (b)\n";
     std::cout << "User input: ";
 
@@ -112,6 +117,7 @@ void Meniu::printGameModes() {
     std::cout << "\n\tPlay 2048!\n\n";
     std::cout << "Classic (c)\n";
     std::cout << "Fibonacci (f)\n";
+    std::cout << "Random (r)\n";
     std::cout << "Back (b)\n";
     std::cout << "User input: ";
 }
@@ -130,6 +136,8 @@ void Meniu::end(int scor, const std::shared_ptr<Board>& board) {
         nrClassicGame++;
     if(std::dynamic_pointer_cast<BoardFibonacci>(board))
         nrFiboGame++;
+    if(std::dynamic_pointer_cast<BoardRandom>(board))
+        nrRandomGame++;
 
     printStatsInFile();
 }
