@@ -4,8 +4,8 @@
 int main() {
 
 
-    Meniu m{};
-    m.start();
+    std::shared_ptr<Meniu> m = Meniu::getInstance();
+    m->start();
 
     return 0;
 }

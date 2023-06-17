@@ -13,6 +13,17 @@
 #include "../headers/BoardFibonacci.h"
 #include "../headers/BoardRandom.h"
 
+std::shared_ptr<Meniu> Meniu::instance = NULL;
+
+std::shared_ptr<Meniu> Meniu::getInstance() {
+    if(Meniu::instance != NULL)
+        return Meniu::instance;
+    else{
+        Meniu::instance = std::shared_ptr<Meniu>(new Meniu);
+        return Meniu::instance;
+    }
+}
+
 
 void Meniu::start() {
     char input;
@@ -40,10 +51,10 @@ void Meniu::start() {
         if(input == 'b')
             start();
         else{
-            Game g(input);
+            std::shared_ptr <Game> g = Game::getInstance(input);
 
             try{
-                g.play();
+                g->play();
             }
             catch (EroareBlock &err){
                 clearScreen();
@@ -58,7 +69,7 @@ void Meniu::start() {
                 std::cout << err.what();
 
             }
-            end(g.getScor(), g.getBoard());
+            end(g->getScor(), g->getBoard());
         }
     }
 }

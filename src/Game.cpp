@@ -1,23 +1,25 @@
 #include "../headers/Game.h"
-#include "../headers/BoardClassic.h"
 #include "../headers/Erori.h"
-#include "../headers/BoardFibonacci.h"
-#include "../headers/BoardRandom.h"
 #include "../headers/BoardFactory.h"
 #include <rlutil.h>
+
+std::shared_ptr<Game> Game::instance = NULL;
+
 
     Game::Game(char mode): scor(0) {
         buildBoard(mode);
     }
 
-    Game::Game(const Game& other): board(other.board->clone()), scor(other.scor){
-    } // constructor de copiere
+    std::shared_ptr<Game> Game::getInstance(char mode) {
+        if(instance != NULL){
+            return instance;
+        }
+        else{
+            instance = std::shared_ptr<Game>(new Game(mode));
+            return instance;
+        }
+    }
 
-    Game& Game::operator=(const Game& other){
-        board = other.board->clone();
-        scor = other.scor;
-        return *this;
-    } // operator de copiere
 
     std::ostream& operator<<(std::ostream& os, const Game& gm) {
         os << "   PLAY 2048!\n"; 
@@ -89,3 +91,5 @@ void Game::buildBoard(char mode) {
 
     board = fact.build(mode);
 }
+
+

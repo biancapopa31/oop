@@ -17,8 +17,15 @@ class Meniu {
     int nrFiboGame;
     int nrRandomGame;
 
-public:
     Meniu() = default;
+
+    static std::shared_ptr<Meniu> instance;
+
+public:
+
+    static std::shared_ptr<Meniu> getInstance();
+
+    Meniu (const Meniu&) = delete;
 
     void start();
 

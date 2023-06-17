@@ -11,18 +11,22 @@ private:
 
     void incScor(int add);
 
+    explicit Game(char input);
+
     std::shared_ptr<Board> board;
     int scor;
+    static std::shared_ptr<Game> instance;
+
 
 public:
 
     Game() = delete;
 
-    explicit Game(char input);
+    static std::shared_ptr<Game> getInstance(char);
 
-    Game(const Game& other); // constructor de copiere
+    Game(const Game& other) = delete; // constructor de copiere
 
-    Game& operator=(const Game& other); // operator =
+    Game& operator=(const Game& other) = delete; // operator =
 
     friend std::ostream& operator<<(std::ostream& os, const Game& gm); // operator << afisare
 
