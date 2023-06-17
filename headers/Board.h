@@ -19,7 +19,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Board& board);
 
-    virtual std::shared_ptr<Board> clone() const = 0;
+  //  virtual std::shared_ptr<Board> clone() const = 0;
 
     /*void makeCustomBoard();*/
 

@@ -4,10 +4,10 @@
 
 #include <random>
 #include "../headers/BoardRandom.h"
-
+/*
 std::shared_ptr<Board> BoardRandom::clone() const {
     return std::make_shared<BoardRandom>(*this);
-}
+}*/
 
 void BoardRandom::genNewElement() {
     std::random_device rd;
