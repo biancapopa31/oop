@@ -35,11 +35,13 @@ void Meniu::start() {
     } else{
         printGameModes();
         input = readInput();
+        std::cout << input;
         clearScreen();
         if(input == 'b')
             start();
         else{
             Game g(input);
+
             try{
                 g.play();
             }

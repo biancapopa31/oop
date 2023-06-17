@@ -18,13 +18,15 @@ public:
 
     Game() = delete;
 
-    explicit Game(char);
+    explicit Game(char input);
 
     Game(const Game& other); // constructor de copiere
 
     Game& operator=(const Game& other); // operator =
 
     friend std::ostream& operator<<(std::ostream& os, const Game& gm); // operator << afisare
+
+    void buildBoard(char);
 
     int getScor() const;
 

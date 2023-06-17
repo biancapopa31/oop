@@ -3,17 +3,13 @@
 #include "../headers/Erori.h"
 #include "../headers/BoardFibonacci.h"
 #include "../headers/BoardRandom.h"
+#include "../headers/BoardFactory.h"
 #include <rlutil.h>
 
     Game::Game(char mode): scor(0) {
-        if (mode == 'c')
-            board = std::make_shared<BoardClassic>();
-        else if(mode == 'f')
-            board = std::make_shared<BoardFibonacci>();
-        else
-            board = std::make_shared<BoardRandom>();
-
+        buildBoard(mode);
     }
+
     Game::Game(const Game& other): board(other.board->clone()), scor(other.scor){
     } // constructor de copiere
 
@@ -86,4 +82,10 @@ int Game::getScor() const {
 
 const std::shared_ptr<Board> &Game::getBoard() const {
     return board;
+}
+
+void Game::buildBoard(char mode) {
+    BoardFactory fact;
+
+    board = fact.build(mode);
 }
