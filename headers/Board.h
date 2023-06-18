@@ -9,6 +9,7 @@ protected:
 
     static const int hBoard = 4;
     static const int wBoard = 4;
+    int maxVal = 0;
     std::vector<std::vector<std::shared_ptr<Block>>> elemBoard;
 
 public:
@@ -27,9 +28,11 @@ public:
 
     virtual void genNewElement() = 0;
 
-     virtual bool isFull();
+    virtual bool isFull();
 
-    virtual void canMakeMove() ;
+    virtual void canMakeMove();
+
+    virtual void updateMaxVal();
     
     void moveLeft();
 

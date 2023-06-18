@@ -2,6 +2,7 @@
 #include "../headers/Erori.h"
 #include "../headers/BoardFactory.h"
 #include <rlutil.h>
+#include <iomanip>
 
 //std::shared_ptr<Game> Game::instance = NULL;
 
@@ -32,6 +33,7 @@
     void Game::play(){
         clearScreen();
         this->board->makeBoard();
+        board->updateMaxVal();
         std::cout << *this;
         while (true){
 
@@ -57,6 +59,8 @@
 
             }
             this->board->genNewElement();
+            board->updateMaxVal();
+
             clearScreen();
             std::cout << *this;
 

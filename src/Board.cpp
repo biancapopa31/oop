@@ -1,8 +1,9 @@
+#include <iomanip>
 #include "../headers/Board.h"
 #include "../headers/Erori.h"
 
 
-Board::Board(){
+Board::Board(): maxVal(0){
     for (int i = 0; i < hBoard; i++){
         std::vector <std::shared_ptr<Block>> aux;
         for (int j = 0; j <wBoard; j++){
@@ -21,6 +22,7 @@ Board::Board(const Board& other){
         for(int j = 0; j < wBoard; j++){
             elemBoard[i][j] = other.elemBoard[i][j];
         }
+    maxVal = other.maxVal;
 } // constructor de copiere
 
 Board& Board::operator=(const Board& other){
@@ -30,44 +32,39 @@ Board& Board::operator=(const Board& other){
         for(int j = 0; j < wBoard; j++){
             elemBoard[i][j] = other.elemBoard[i][j];
         }
+    maxVal = other.maxVal;
+
     return *this;
 } // operator de copiere
 
 std::ostream& operator<<(std::ostream& os, const Board& board) {
-    for (int i = 0; i < 20 ; i++)
+    int k = 0;
+    if(board.maxVal < 10) k = 1;
+    else if(board.maxVal < 100) k = 2;
+    else if(board.maxVal < 1000) k = 3;
+    else if(board.maxVal < 10000) k = 4;
+
+    for (int i = 0; i < 20 + (k-1)*4 ; i++)
         os << "_";
     os << "\n";
-    for (int i = 0; i < 20 ; i++)
+    for (int i = 0; i < 20 + (k-1)*4 ; i++)
         os << " ";
     os << "\n";
 
     for (int i = 0; i < Board::hBoard; i++){
         for(int j = 0; j< Board::wBoard; j++)
-            os << "| " << *board.elemBoard[i][j] << "|";
+            os << "| " << std::setfill(' ') << std::setw(k)<< *board.elemBoard[i][j]<< "|";
         os << "\n";
-        for (int j = 0; j < 20 ; j++)
+        for (int j = 0; j < 20 + (k-1)*4; j++)
             os << "_";
         os << "\n";
-        for (int j = 0; j < 20 ; j++)
+        for (int j = 0; j < 20 + (k-1)*4; j++)
             os << " ";
         os << "\n";
     }
-    /*for (int i = 0; i <20; i++)
-        os << "_";
-    os << "\n";*/
     return os;
 }
 
-/*void Board::makeCustomBoard(){
-    elemBoard[1][1].setBlock(1, 1, 2);
-    elemBoard[1][3].setBlock(1, 3, 2);
-    elemBoard[1][0].setBlock(1, 0, 2);
-    elemBoard[1][2].setBlock(1, 2, 2);
-    elemBoard[2][1].setBlock(2, 1, 2);
-    elemBoard[0][3].setBlock(0, 3, 2);
-    elemBoard[3][3].setBlock(3, 3, 4);
-    elemBoard[3][0].setBlock(3, 0, 2);
-}*/
 
 
 void Board::makeBoard(){
@@ -210,5 +207,17 @@ void Board::canMakeMove() {
 
     throw EroareBoard("Nu se mai pot face mutari!");
 
+}
+
+void Board::updateMaxVal() {
+    int mx = 0;
+    for (int i = 0; i < hBoard; i++){
+        for (int j = 0; j <wBoard; j++){
+            if(mx < elemBoard[i][j]->getValBlock()){
+                mx = elemBoard[i][j]->getValBlock();
+            }
+        }
+    }
+    maxVal = mx;
 }
 
