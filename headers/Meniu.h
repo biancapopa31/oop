@@ -21,7 +21,8 @@ class Meniu: public SingletonTemplate <Meniu>{
     int nrRandomGame;
 
     Meniu() = default;
-    explicit Meniu(char){};
+
+    explicit Meniu(char): maxScor{0}, nrClassicGame(0), nrFiboGame(0), nrRandomGame(0) {};
 
 public:
 
