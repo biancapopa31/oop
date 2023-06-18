@@ -125,9 +125,9 @@ jobs:
             # This env runs memory sanitizers
 
           - os: ubuntu-22.04
-            c: clang-12
-            cxx: clang++-12
-            name: "ASan: Ubuntu 22.04 Clang 12"
+            c: gcc-12
+            cxx: g++-12
+            name: "ASan: Ubuntu 22.04 GCC 12"
             cmake_flags: -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
             runs_asan: true
             # This env runs address sanitizers
