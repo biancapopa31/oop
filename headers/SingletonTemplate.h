@@ -14,7 +14,7 @@ private:
     static std::shared_ptr<T> instance;
 protected:
     SingletonTemplate() = default;
-    explicit SingletonTemplate(char mode) {};
+    explicit SingletonTemplate(char) {};
     virtual ~SingletonTemplate() = default;
 
 public:

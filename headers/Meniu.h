@@ -21,7 +21,7 @@ class Meniu: public SingletonTemplate <Meniu>{
     int nrRandomGame;
 
     Meniu() = default;
-    Meniu(char) {};
+    explicit Meniu(char){};
 
 public:
 
