@@ -9,7 +9,7 @@ protected:
 
     static const int hBoard = 4;
     static const int wBoard = 4;
-    std::vector<std::vector<std::shared_ptr<Block <int>>>> elemBoard;
+std::vector<std::vector<std::shared_ptr<Block <int>>>> elemBoard;
 
 public:
     Board();
@@ -19,7 +19,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Board& board);
 
-    virtual std::shared_ptr<Board> clone() const = 0;
+  //  virtual std::shared_ptr<Board> clone() const = 0;
 
     /*void makeCustomBoard();*/
 

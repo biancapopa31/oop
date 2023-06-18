@@ -12,7 +12,7 @@ class BoardFibonacci: public Board {
 public:
     using Board::Board;
 
-    std::shared_ptr<Board> clone() const override;
+  //  std::shared_ptr<Board> clone() const override;
 
     void genNewElement() override;
 

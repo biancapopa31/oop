@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 
+
+
 template <typename T>
 class Block;
 
@@ -35,10 +37,13 @@ public:
 
     void setBlock(int pozX_, int pozY_, T val_);
 
-    T getValBlock ()const;
+     T getValBlock ()const;
 
 
     bool isEmpty() const;
 
     ~Block();
 };
+
+template class
+Block<int>;

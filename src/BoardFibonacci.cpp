@@ -24,10 +24,10 @@ void BoardFibonacci::genNewElement() {
     else
         elemBoard[X][Y]->setBlock(X, Y, 1);
 }
-
+/*
 std::shared_ptr<Board> BoardFibonacci::clone() const {
     return std::make_shared<BoardFibonacci>(*this);
-}
+}*/
 
 bool BoardFibonacci::canBeAdded(std::shared_ptr<Block<int>> el1, std::shared_ptr<Block<int>> el2) {
     if(el1->getValBlock() == 1 && el2->getValBlock() == 1)

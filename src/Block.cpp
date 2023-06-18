@@ -1,8 +1,7 @@
 #include "../headers/Block.h"
 #include "../headers/Erori.h"
 
-template class
-Block<int>;
+
 
 template
 std::ostream& operator<< <>(std::ostream& o, const Block<int>& x);
@@ -42,7 +41,7 @@ template <typename T> void Block<T>::setBlock(const int pozX_, const int pozY_, 
         val = val_;
     }
 
-template <typename T>  T Block<T>::getValBlock () const{
+template <typename T> T Block<T>::getValBlock () const{
         return val;
     }
 
