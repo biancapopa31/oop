@@ -4,10 +4,10 @@
 
 #include <random>
 #include "../headers/BoardRandom.h"
-/*
+
 std::shared_ptr<Board> BoardRandom::clone() const {
     return std::make_shared<BoardRandom>(*this);
-}*/
+}
 
 void BoardRandom::genNewElement() {
     std::random_device rd;
@@ -34,6 +34,6 @@ void BoardRandom::genNewElement() {
         elemBoard[X][Y]->setBlock(X, Y, 2);
 }
 
-bool BoardRandom::canBeAdded(std::shared_ptr<Block> el1, std::shared_ptr<Block>el2) {
+bool BoardRandom::canBeAdded(std::shared_ptr<Block<int>> el1, std::shared_ptr<Block<int>>el2) {
     return el1->getValBlock() == el2->getValBlock();
 }

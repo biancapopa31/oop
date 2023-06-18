@@ -1,29 +1,41 @@
 #pragma once
 #include <iostream>
 
+template <typename T>
+class Block;
+
+template<typename T>
+std::ostream& operator<<(std::ostream&, const Block<T>&);
+
+template<typename T>
+void swap(Block<T>&, Block<T>&);
+
+
+
+template <typename T>
 class Block{
 
 private:    
-    int val;
+    T val;
     int pozX, pozY;
     static const int maxX = 4;
     static const int maxY = 4;
 
 
 public:
-    explicit Block(int = 0, int = 0, int = 0);
+    explicit Block(T = 0, int = 0, int = 0);
 
-    Block(const Block& other); // constructor de copiere
+    Block(const Block<T>& other); // constructor de copiere
 
-    Block& operator=(Block& other);
+    Block& operator=(Block<T>& other);
 
-    friend void swap(Block&, Block&);
+    friend void swap <T>(Block<T>&, Block<T>&);
 
-    friend std::ostream& operator<<(std::ostream& os, const Block& el);
+    friend std::ostream& operator<< <T>(std::ostream& os, const Block<T>& el);
 
-    void setBlock(int pozX_, int pozY_, int val_);
+    void setBlock(int pozX_, int pozY_, T val_);
 
-    int getValBlock ()const;
+    T getValBlock ()const;
 
 
     bool isEmpty() const;

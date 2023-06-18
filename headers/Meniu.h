@@ -27,6 +27,8 @@ public:
 
     Meniu (const Meniu&) = delete;
 
+    Meniu& operator=(const Meniu& other) = delete;
+
     void start();
 
     static void printMeniu();
@@ -39,7 +41,10 @@ public:
 
     static char readInput();
 
-    void end(int , const std::shared_ptr<Board>&);
+    template<class T>
+    void end(int scor, const std::shared_ptr<T> &board);
+
+   // void end(int , const std::shared_ptr<Board>&);
 
     void readStats();
 

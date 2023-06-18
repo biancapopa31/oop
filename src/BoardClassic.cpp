@@ -25,12 +25,12 @@ void BoardClassic::genNewElement() {
     elemBoard[X][Y]->setBlock(X, Y, 2);
 }
 
-/*
+
 std::shared_ptr<Board> BoardClassic::clone() const {
     return std::make_shared<BoardClassic>(*this);
-}*/
+}
 
-bool BoardClassic::canBeAdded(std::shared_ptr<Block> el1, std::shared_ptr<Block> el2) {
+bool BoardClassic::canBeAdded(std::shared_ptr<Block <int>> el1, std::shared_ptr<Block <int>> el2) {
     return el1->getValBlock() == el2->getValBlock();
 }
 

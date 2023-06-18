@@ -4,9 +4,9 @@
 
 Board::Board(){
         for (int i = 0; i < hBoard; i++){
-            std::vector <std::shared_ptr<Block>> aux;
+            std::vector <std::shared_ptr<Block <int>>> aux;
             for (int j = 0; j <wBoard; j++){
-                std::shared_ptr<Block> b(new Block(0,i,j));
+                std::shared_ptr<Block <int>> b(new Block(0,i,j));
                 aux.push_back(b);
             }
             elemBoard.push_back(aux);

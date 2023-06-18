@@ -67,9 +67,16 @@ void Meniu::start() {
             catch (EroareGame &err) {
                 clearScreen();
                 std::cout << err.what();
-
             }
-            end(g->getScor(), g->getBoard());
+            if(std::dynamic_pointer_cast<BoardClassic>(g->getBoard()))
+                end(g->getScor(), std::dynamic_pointer_cast<BoardClassic>(g->getBoard()));
+
+            else if(std::dynamic_pointer_cast<BoardFibonacci>(g->getBoard()))
+                end(g->getScor(), std::dynamic_pointer_cast<BoardFibonacci>(g->getBoard()));
+
+            else if(std::dynamic_pointer_cast<BoardRandom>(g->getBoard()))
+                end(g->getScor(), std::dynamic_pointer_cast<BoardRandom>(g->getBoard()));
+
         }
     }
 }
@@ -141,18 +148,16 @@ char Meniu::readInput() {
     return  input;
 }
 
-void Meniu::end(int scor, const std::shared_ptr<Board>& board) {
-
+template<typename T>
+void Meniu::end(int scor, const std::shared_ptr<T> &){
     if(scor > maxScor)
         maxScor = scor;
-    if(std::dynamic_pointer_cast<BoardClassic>(board))
-        nrClassicGame++;
-    if(std::dynamic_pointer_cast<BoardFibonacci>(board))
-        nrFiboGame++;
-    if(std::dynamic_pointer_cast<BoardRandom>(board))
-        nrRandomGame++;
+    nrClassicGame += std::is_same<T, BoardClassic>::value;
+    nrFiboGame += std::is_same<T, BoardFibonacci>::value;
+    nrRandomGame += std::is_same<T, BoardRandom>::value;
 
     printStatsInFile();
+
 }
 
 void Meniu::clearScreen() {
