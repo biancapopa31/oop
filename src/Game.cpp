@@ -3,14 +3,14 @@
 #include "../headers/BoardFactory.h"
 #include <rlutil.h>
 
-std::shared_ptr<Game> Game::instance = NULL;
+//std::shared_ptr<Game> Game::instance = NULL;
 
 
     Game::Game(char mode): scor(0) {
         buildBoard(mode);
     }
 
-    std::shared_ptr<Game> Game::getInstance(char mode) {
+ /*   std::shared_ptr<Game> Game::getInstance(char mode) {
         if(instance != NULL){
             return instance;
         }
@@ -19,7 +19,7 @@ std::shared_ptr<Game> Game::instance = NULL;
             return instance;
         }
     }
-
+*/
 
     std::ostream& operator<<(std::ostream& os, const Game& gm) {
         os << "   PLAY 2048!\n"; 

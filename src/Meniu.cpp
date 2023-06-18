@@ -13,17 +13,6 @@
 #include "../headers/BoardFibonacci.h"
 #include "../headers/BoardRandom.h"
 
-std::shared_ptr<Meniu> Meniu::instance = NULL;
-
-std::shared_ptr<Meniu> Meniu::getInstance() {
-    if(Meniu::instance != NULL)
-        return Meniu::instance;
-    else{
-        Meniu::instance = std::shared_ptr<Meniu>(new Meniu);
-        return Meniu::instance;
-    }
-}
-
 
 void Meniu::start() {
     char input;

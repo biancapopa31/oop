@@ -2,8 +2,10 @@
 #include <iostream>
 #include <memory>
 #include "Board.h"
+#include "SingletonTemplate.h"
 
-class Game{
+class Game: public SingletonTemplate <Game>{
+    friend class SingletonTemplate <Game>;
 private:
     static void clearScreen();
 
@@ -11,18 +13,18 @@ private:
 
     void incScor(int add);
 
+    Game() = default;
+
     explicit Game(char input);
 
     std::shared_ptr<Board> board;
     int scor;
-    static std::shared_ptr<Game> instance;
 
 
 public:
 
-    Game() = delete;
+   // Game() = delete;
 
-    static std::shared_ptr<Game> getInstance(char);
 
     Game(const Game& other) = delete; // constructor de copiere
 

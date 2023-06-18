@@ -9,8 +9,11 @@
 #include <ostream>
 #include <memory>
 #include "Board.h"
+#include "SingletonTemplate.h"
 
-class Meniu {
+class Meniu: public SingletonTemplate <Meniu>{
+
+    friend class SingletonTemplate<Meniu>;
 
     int maxScor;
     int nrClassicGame;
@@ -18,12 +21,9 @@ class Meniu {
     int nrRandomGame;
 
     Meniu() = default;
-
-    static std::shared_ptr<Meniu> instance;
+    Meniu(char) {};
 
 public:
-
-    static std::shared_ptr<Meniu> getInstance();
 
     Meniu (const Meniu&) = delete;
 
