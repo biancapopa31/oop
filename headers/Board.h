@@ -9,7 +9,7 @@ protected:
 
     static const int hBoard = 4;
     static const int wBoard = 4;
-std::vector<std::vector<std::shared_ptr<Block <int>>>> elemBoard;
+    std::vector<std::vector<std::shared_ptr<Block>>> elemBoard;
 
 public:
     Board();
@@ -47,7 +47,7 @@ public:
 
     virtual int addDown();
 
-    virtual bool canBeAdded(std::shared_ptr<Block <int>> , std::shared_ptr<Block <int>>) = 0;
+    virtual bool canBeAdded(std::shared_ptr<Block > , std::shared_ptr<Block>) = 0;
 
     virtual ~Board() = default;
 };

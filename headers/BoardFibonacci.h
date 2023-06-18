@@ -16,7 +16,7 @@ public:
 
     void genNewElement() override;
 
-    bool canBeAdded(std::shared_ptr<Block <int>> , std::shared_ptr<Block<int>>) override;
+    bool canBeAdded(std::shared_ptr<Block > , std::shared_ptr<Block>) override;
 
 
 };

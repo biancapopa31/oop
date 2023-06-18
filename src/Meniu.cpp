@@ -123,22 +123,23 @@ void Meniu::printStatsInFile() const {
 }
 
 void Meniu::printStats() const {
+    std::cout << "\tPlay 2048!\n\n";
 
     std::cout << "Highscore: " << maxScor << "\n";
     std::cout << "Games played in Classic Mode: " << nrClassicGame << "\n";
     std::cout << "Games played in Fibonacci mode: " << nrFiboGame << "\n";
     std::cout << "Games played in Random mode: " << nrRandomGame << "\n";
-    std::cout << "Back (b)\n";
+    std::cout << "Back (b)\n\n";
     std::cout << "User input: ";
 
 }
 
 void Meniu::printGameModes() {
-    std::cout << "\n\tPlay 2048!\n\n";
+    std::cout << "\tPlay 2048!\n\n";
     std::cout << "Classic (c)\n";
     std::cout << "Fibonacci (f)\n";
     std::cout << "Random (r)\n";
-    std::cout << "Back (b)\n";
+    std::cout << "Back (b)\n\n";
     std::cout << "User input: ";
 }
 
