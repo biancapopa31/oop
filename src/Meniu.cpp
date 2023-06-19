@@ -81,7 +81,7 @@ void Meniu::printMeniu() {
 void Meniu::readStats() {
     std::string input;
     std::fstream fisier;
-    fisier.open("../fis/stats.txt",std::ios::in) ;
+    fisier.open("./fis/stats.txt",std::ios::in) ;
 
     std::getline(fisier,input,' ');
     maxScor = strToChr(input);
@@ -107,7 +107,7 @@ int Meniu::strToChr(const std::string& str) {
 
 void Meniu::printStatsInFile() const {
     std::fstream fisier;
-    fisier.open("../fis/stats.txt",std::ios::out | std::ios::trunc) ;
+    fisier.open("./fis/stats.txt",std::ios::out | std::ios::trunc) ;
     fisier << maxScor << " " <<nrClassicGame << " " << nrFiboGame << " " << nrRandomGame;
 }
 
